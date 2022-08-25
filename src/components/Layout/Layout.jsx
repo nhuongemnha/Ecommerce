@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserRouter, Route, Routes as Switch } from "react-router-dom";
+import Catalog from "../../pages/Catalog/Catalog";
 import Routes from "../../routes/Routes";
 import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
@@ -21,6 +22,7 @@ const Layout = (props) => {
               <Footer />
             </div>
           }
+          
         />
       </Switch>
     </BrowserRouter>
