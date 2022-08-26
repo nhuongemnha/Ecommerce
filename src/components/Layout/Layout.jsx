@@ -4,6 +4,7 @@ import Catalog from "../../pages/Catalog/Catalog";
 import Routes from "../../routes/Routes";
 import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
+import ProductViewModal from "../ProductViewModal/ProductViewModal";
 
 const Layout = (props) => {
   return (
@@ -20,6 +21,7 @@ const Layout = (props) => {
                 </div>
               </div>
               <Footer />
+              <ProductViewModal/>
             </div>
           }
           

@@ -4,8 +4,11 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import Button from "../Button/Button";
 import numberWithCommas from "../../utils/numberWithCommas";
+import { useDispatch } from "react-redux";
+import { type } from "@testing-library/user-event/dist/type";
 
 const ProductCard = (props) => {
+  const dispatch = useDispatch();
   return (
     <div className="product-card">
       <Link to={`/catalog/${props.slug}`}>
@@ -22,7 +25,17 @@ const ProductCard = (props) => {
         </div>
       </Link>
       <div className="product-card__btn">
-        <Button size="sm" icon="bx bx-cart" animate={true}>
+        <Button
+          size="sm"
+          icon="bx bx-cart"
+          animate={true}
+          onClick={() => {
+            dispatch({
+              type: "SET",
+              payload: props.slug,
+            });
+          }}
+        >
           chọn mua
         </Button>
       </div>

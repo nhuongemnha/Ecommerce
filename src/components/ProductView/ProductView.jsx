@@ -3,16 +3,34 @@ import PropTypes from "prop-types";
 import Button from "../Button/Button";
 import numberWithCommas from "../../utils/numberWithCommas";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 const ProductView = (props) => {
-  const product = props.product;
   let navigate = useNavigate();
+  let product = props.product;
+  const dispatch = useDispatch();
+
+  if (product === undefined)
+    product = {
+      title: "",
+      price: "",
+      image01: null,
+      image02: null,
+      categorySlug: "",
+      colors: [],
+      slug: "",
+      size: [],
+      description: "",
+    };
+
   const [previewImg, setPreviewImg] = useState(product.image01);
 
   const [descriptionExpand, setDescriptionExpand] = useState(false);
 
   const [color, setColor] = useState(undefined);
+
   const [size, setSize] = useState(undefined);
+
   const [quantity, setQuantity] = useState(1);
 
   const updateQuantity = (type) => {
@@ -44,12 +62,34 @@ const ProductView = (props) => {
 
   const addToCard = () => {
     if (check()) {
-      console.log({ color, size, quantity });
+      dispatch({
+        type: "addItems",
+        payload: {
+          slug: product.slug,
+          color: color,
+          size: size,
+          quantity: quantity,
+          price: product.price,
+        },
+      });
+      alert("success");
     }
   };
 
   const goToCart = () => {
     if (check()) {
+      dispatch({
+        type: "addItems",
+        payload: {
+          slug: product.slug,
+          color: color,
+          size: size,
+          quantity: quantity,
+          price: product.price,
+        },
+      });
+      alert("success");
+
       navigate("/cart");
     }
   };
@@ -127,7 +167,6 @@ const ProductView = (props) => {
           <div className="product__info__item__title">Kích thước</div>
           <div className="product__info__item__list">
             {product.size.map((item, index) => {
-              console.log(item, "siae");
               return (
                 <div
                   key={index}
@@ -174,7 +213,9 @@ const ProductView = (props) => {
       </div>
 
       <div
-        className={`product-description mobile ${descriptionExpand ? "expand" : ""}`}
+        className={`product-description mobile ${
+          descriptionExpand ? "expand" : ""
+        }`}
       >
         <div className="product-description__title">Chi tiết sản phẩm</div>
         <div
@@ -195,7 +236,7 @@ const ProductView = (props) => {
 };
 
 ProductView.propTypes = {
-  product: PropTypes.object.isRequired,
+  product: PropTypes.object,
 };
 
 export default ProductView;
